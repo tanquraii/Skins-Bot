@@ -4,9 +4,7 @@ from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton,
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from app.database.requests import get_categories, get_category_item
 main = ReplyKeyboardMarkup(keyboard = [
-    [KeyboardButton(text='Catalog')],
-    [KeyboardButton(text='Wishlist')],
-    [KeyboardButton(text='Contacts')]
+    [KeyboardButton(text='Catalog')]
 ])
 
 async def categories():

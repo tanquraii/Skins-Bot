@@ -11,19 +11,19 @@ router = Router()
 @router.message(CommandStart())
 async def cmd_start(message: Message):
     await rq.set_user(message.from_user.id)
-    await message.answer('Добро пожаловать в магазин кроссовок!', reply_markup=kb.main)
+    await message.answer('Welcome to valorant skins shop!!!!', reply_markup=kb.main)
 
 
 @router.message(F.text == 'Catalog')
 async def catalog(message: Message):
-    await message.answer('Выберите категорию товара', reply_markup=await kb.categories())
+    await message.answer('Choose type of weapon', reply_markup=await kb.categories())
 
 
 
 @router.callback_query(F.data.startswith('category_'))
 async def category(callback: CallbackQuery):
-    await callback.answer('Вы выбрали категорию')
-    await callback.message.answer('Выберите товар по категории',
+    await callback.answer('You chose a weapon')
+    await callback.message.answer('Choose a skin to buy',
                                   reply_markup=await kb.items(callback.data.split('_')[1]))
 
 
@@ -31,5 +31,5 @@ async def category(callback: CallbackQuery):
 @router.callback_query(F.data.startswith('item_'))
 async def category(callback: CallbackQuery):
     item_data = await rq.get_item(callback.data.split('_')[1])
-    await callback.answer('Вы выбрали товар')
-    await callback.message.answer(f'Название: {item_data.name}\nЦена: {item_data.price}$')
+    await callback.answer('You chose an item')
+    await callback.message.answer(f'Name: {item_data.name}\nPrice: {item_data.price}$')
